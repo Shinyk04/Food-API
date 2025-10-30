@@ -7,5 +7,26 @@ app = FastAPI()
 @app.get("/get-message")
 def hello(name: str):
     return {'Message': "Hi " + name + ', how are you?'}
+
+static_string = "Initial string"
+
+@app.post("/add")
+async def add_text(text: str):
+    global static_string
+    static_string += text
+    return {"message": "Text added", "current_string": static_string}
+
+@app.put("/change")
+async def change_text(new_text: str):
+    global static_string
+    static_string = new_text
+    return {"message": "Text changed", "current_string": static_string}
+
+@app.delete("/remove")
+async def remove_text():
+    global static_string
+    static_string = ""
+    return {"message": "Text removed"}
+
 #async def read_root():
 #    return {"Message": "Trying out this API!"}
