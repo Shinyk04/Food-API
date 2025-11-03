@@ -8,7 +8,13 @@ app = FastAPI()
 def hello(name: str):
     return {'Message': "Hi " + name + ', how are you?'}
 
+
 static_string = "Initial string"
+
+@app.get("/get-current")
+async def current():
+    global static_string
+    return {"message": "Current string is: " + static_string}
 
 @app.post("/add")
 async def add_text(text: str):
